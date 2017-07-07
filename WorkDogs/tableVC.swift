@@ -15,12 +15,12 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tbView: UITableView!
 //    var mydata:Array<String> = ["111","222","333","444","555","666","777","888","999","000"]
-//    var myimg = [UIImage(named: "c.png"),UIImage(named: "ball.png"),UIImage(named: "c.png"),UIImage(named: "apple.jpg"),UIImage(named: "c.png"),UIImage(named: "apple.jpg"),UIImage(named: "c.png"),UIImage(named: "apple.jpg"),UIImage(named: "c.png"),UIImage(named: "apple.jpg")]
+    var myimg = [UIImage(named: "c.png"),UIImage(named: "ball.png"),UIImage(named: "c.png"),UIImage(named: "apple.jpg"),UIImage(named: "c.png"),UIImage(named: "apple.jpg"),UIImage(named: "c.png"),UIImage(named: "apple.jpg"),UIImage(named: "c.png"),UIImage(named: "apple.jpg")]
     
     
-        var mydata:Array<String> = []
-    
-    var myimg:Array<UIImage> = []
+    var mydata:Array<String> = []
+//
+//    var myimg:Array<UIImage> = []
     
     
     var url = URL(string: "")
@@ -41,8 +41,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
         let cell = tbView.dequeueReusableCell(withIdentifier: "tbcell") as! tableViewCell
         
         cell.dogNameLabel.text = mydata[indexPath.row]
-        cell.selfPhoto.image = myimg[indexPath.row]
-
+//        cell.selfPhoto.image = myimg[indexPath.row]
         
         cell.accessoryType = .disclosureIndicator
         
@@ -77,10 +76,39 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(app.account!)
+        print("123")
         
-        mydata.append("大摳")
-        myimg.append(UIImage(named: "c.png")!)
+        let url = URL(string: "http://127.0.0.1/walkdog/getTable.php?account=1234")
+//        do{
+//        let source = try String(contentsOf: url!)
+//            
+//        
+//            print(source)
+//        }catch{}
+        
+        
+//        let session = URLSession(configuration: .default)
+//        let task = session.dataTask(with: url!, completionHandler: {(data, respose,error) in
+            do{
+                let  data = try Data(contentsOf: url!)
+                 let jsonobj = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+               
+                for a in  jsonobj as! [[String:String]] {
+                print(a["mastername"]!)
+                mydata.append(a["mastername"]!)                }
+                
+                
+                
+                
+                }catch {}
+//            mydata = arr
+//        })
+//        task.resume()
+    
+        
+    
+//        mydata.append("大摳")
+//        myimg.append(UIImage(named: "c.png")!)
 
     }
     
