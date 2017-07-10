@@ -283,9 +283,9 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
 //            let url = URL(string: "http://127.0.0.1/walkdog/getTable.php?account=\(account)")
             
             
-            //post
+            
 //            https://sevensql-seventsai.c9users.io/getTable.php
-            //c9資料庫
+            //c9資料庫 post
             let url = URL(string: "https://sevensql-seventsai.c9users.io/getTable.php")
             let session = URLSession(configuration: .default)
             
@@ -368,22 +368,23 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
             
             //沒輸入帳號直接跑到的話 給他一個假帳號
             print("no account")
+            
             //192.168.1.136
 //            169.254.227.115
 //            let url = URL(string: "http://127.0.0.1/walkdog/getTable.php?account=1234")
 //            let url = URL(string: "http://10.2.12.133/walkdog/getTable.php?account=1234")
-            do{
-                let  data = try Data(contentsOf: url!)
-                let jsonobj = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                
-                for a in  jsonobj as! [[String:String]] {
-                    print(a["account"]!)
-                    mydata.append(a["account"]!)                }
-
-            }catch {
-                print(error)
-            }
-            
+//            do{
+//                let  data = try Data(contentsOf: url!)
+//                let jsonobj = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                
+//                for a in  jsonobj as! [[String:String]] {
+//                    print(a["account"]!)
+//                    mydata.append(a["account"]!)                }
+//
+//            }catch {
+//                print(error)
+//            }
+//            
         }
 
     }

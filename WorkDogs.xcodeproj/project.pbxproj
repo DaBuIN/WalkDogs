@@ -14,6 +14,7 @@
 		140E1D041F111BC700CA80A5 /* map.html in Resources */ = {isa = PBXBuildFile; fileRef = 140E1D031F111BC700CA80A5 /* map.html */; };
 		1489C7DC1F0EC5B300094D21 /* scollVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489C7DB1F0EC5B300094D21 /* scollVC.swift */; };
 		1489C7DE1F0EC72600094D21 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489C7DD1F0EC72600094D21 /* ViewController.swift */; };
+		14A823641F1367E300156C9D /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A823631F1367E300156C9D /* ViewController2.swift */; };
 		14BC6F731F0E17060006BBFF /* tableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BC6F721F0E17060006BBFF /* tableVC.swift */; };
 		14BC6F791F0E18740006BBFF /* tableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BC6F781F0E18740006BBFF /* tableViewCell.swift */; };
 		14F02B5B1F0DC6EB00CB65B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F02B5A1F0DC6EB00CB65B5 /* AppDelegate.swift */; };
@@ -38,6 +39,7 @@
 		140E1D031F111BC700CA80A5 /* map.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = map.html; sourceTree = "<group>"; };
 		1489C7DB1F0EC5B300094D21 /* scollVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = scollVC.swift; sourceTree = "<group>"; };
 		1489C7DD1F0EC72600094D21 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		14A823631F1367E300156C9D /* ViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		14BC6F721F0E17060006BBFF /* tableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tableVC.swift; sourceTree = "<group>"; };
 		14BC6F781F0E18740006BBFF /* tableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tableViewCell.swift; sourceTree = "<group>"; };
 		14F02B571F0DC6EB00CB65B5 /* WorkDogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkDogs.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +100,7 @@
 				14FFF96B1F0E98F400989107 /* detailVC.swift */,
 				1489C7DB1F0EC5B300094D21 /* scollVC.swift */,
 				140E1D031F111BC700CA80A5 /* map.html */,
+				14A823631F1367E300156C9D /* ViewController2.swift */,
 			);
 			path = WorkDogs;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14A823641F1367E300156C9D /* ViewController2.swift in Sources */,
 				1489C7DE1F0EC72600094D21 /* ViewController.swift in Sources */,
 				14BC6F791F0E18740006BBFF /* tableViewCell.swift in Sources */,
 				1489C7DC1F0EC5B300094D21 /* scollVC.swift in Sources */,

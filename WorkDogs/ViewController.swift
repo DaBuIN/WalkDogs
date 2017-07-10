@@ -32,7 +32,9 @@ class ViewController: UIViewController {
     
     let app = UIApplication.shared.delegate as! AppDelegate
     var source:String?
-    
+    var account:String?
+    var passwd:String?
+    var mastername:String?
     
     
     
@@ -132,6 +134,8 @@ class ViewController: UIViewController {
                 //如果帳號存在
                 if source == "accountok" {
                     print("add OK")
+                    self.app.account = account
+                    
                     let vc = storyboard?.instantiateViewController(withIdentifier: "tableviewvc")
                     show(vc!, sender: self)
                     print("show")
@@ -143,7 +147,7 @@ class ViewController: UIViewController {
                     //                    self.show(vc!, sender: self)
                     //            showDetailViewController(vc!, sender: self)
                     print("exist")
-                     alertEmpty()
+                     alertAccExist()
 
 
                 }else {
@@ -214,7 +218,8 @@ class ViewController: UIViewController {
         let okaction = UIAlertAction(title: "確認", style: .default, handler: {(action) in
             self.dismiss(animated: true, completion: nil)
         })
-    
+        alertController.addAction(okaction)
+        self.present(alertController, animated: true, completion: nil )
     }
 
     
