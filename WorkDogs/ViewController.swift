@@ -31,7 +31,12 @@ class ViewController: UIViewController {
 //    let mastername = masternameText.text!
     
     let app = UIApplication.shared.delegate as! AppDelegate
-
+    var source:String?
+    
+    
+    
+    
+    
     //登入帳密鈕
     @IBAction func login(_ sender: Any) {
         
@@ -39,8 +44,12 @@ class ViewController: UIViewController {
         do{
         let account = loginAcc.text!
         let passwd = loginPwd.text!
-            let urlString:String = "http://127.0.0.1/walkdog/checkLogin.php?account=\(account)&passwd=\(passwd)"
-        
+            
+            //本地
+//            let urlString:String = "http://127.0.0.1/walkdog/checkLogin.php?account=\(account)&passwd=\(passwd)"
+            //c9
+            let urlString:String = "https://sevensql-seventsai.c9users.io/checkLogin.php?account=\(account)&passwd=\(passwd)"
+            
         let url = URL(string: urlString)
         let source = try String(contentsOf: url!, encoding: .utf8)
 
@@ -49,6 +58,9 @@ class ViewController: UIViewController {
                 
                 self.app.account = account
                self.app.passwd = passwd
+
+                
+                
                 let vc = storyboard?.instantiateViewController(withIdentifier: "tableviewvc")
                 show(vc!, sender: self)
                 
@@ -80,8 +92,13 @@ class ViewController: UIViewController {
     
     //創建帳號密碼 送出鈕
     @IBAction func submitBtn(_ sender: Any) {
-        
+        //本地
         let url = URL(string: "http://127.0.0.1/walkdog/addMember.php")
+        
+        //c9
+        
+        
+        
         var request = URLRequest(url: url!)
         
      
@@ -93,27 +110,69 @@ class ViewController: UIViewController {
              let mastername = masternameText.text!
             
             
-            request.httpBody = "account=\(account)&passwd=\(passwd)&mastername=\(mastername)".data(using: .utf8)
-            request.httpMethod = "POST"
+            //根本不需要用到ＵＲＬＲＥＱＵＥＳＲ
+//            request.httpBody = "account=\(account)&passwd=\(passwd)&mastername=\(mastername)".data(using: .utf8)
+//            request.httpMethod = "POST"
+//            
+//            let session = URLSession(configuration: .default)
+//            
+//            let task = session.dataTask(with: request, completionHandler: {(data, response , error) in
+//                //                print(data)
+//           
+//            })
+//            task.resume()
+
             
-            let session = URLSession(configuration: .default)
             
-            let task = session.dataTask(with: request, completionHandler: {(data, response , error) in
-                print(data)
+            //取得後端傳回字串 確認是否可以新增帳號
+            do{
+                let urlGet = URL(string: "http://127.0.0.1/walkdog/addMember.php?account=\(account)&passwd=\(passwd)&mastername=\(mastername)")
+            let source = try String(contentsOf: urlGet!, encoding: .utf8)
+//                print(source)
+                //如果帳號存在
+                if source == "accountok" {
+                    print("add OK")
+                    let vc = storyboard?.instantiateViewController(withIdentifier: "tableviewvc")
+                    show(vc!, sender: self)
+                    print("show")
+                    
+                    
+                }else if source == "accountexist" {
+                    //                     self.alertOK()
+                    //                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "tableviewvc")
+                    //                    self.show(vc!, sender: self)
+                    //            showDetailViewController(vc!, sender: self)
+                    print("exist")
+                     alertEmpty()
+
+
+                }else {
+                    print("else")
+                }
+
                 
-               
-               
-                
-            })
-            task.resume()
-            alertOK()
-            let vc = storyboard?.instantiateViewController(withIdentifier: "tableviewvc")
-            show(vc!, sender: self)
-//            showDetailViewController(vc!, sender: self)
+            }catch{
+            print(error)
+            }
+            
+            
+            
+           
+           
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
         
         }else { print("no words")
-            alertWrong()
+            alertEmpty()
         }
         
         
@@ -136,7 +195,7 @@ class ViewController: UIViewController {
     }
     //新增帳號 alertwrong
 
-    func alertWrong(){
+    func alertEmpty(){
         
         let alertController = UIAlertController(title: "帳號申請", message: "請勿空白", preferredStyle: .alert)
         let okaction = UIAlertAction(title: "確認", style: .default, handler: {(action) in
@@ -150,7 +209,14 @@ class ViewController: UIViewController {
     }
     
     
+    func alertAccExist(){
+        let alertController = UIAlertController(title: "帳號已存在", message: "請發揮你的創意", preferredStyle: .alert)
+        let okaction = UIAlertAction(title: "確認", style: .default, handler: {(action) in
+            self.dismiss(animated: true, completion: nil)
+        })
     
+    }
+
     
     
     

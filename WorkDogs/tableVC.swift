@@ -237,10 +237,9 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("123")
+//        print("123")
         //讀取ＴＡＢＬＥＶＩＥＷ
         loadDB()
-
         
         
         //取得ＧＰＳ
@@ -280,9 +279,62 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
      */
     func loadDB(){
         if let account = app.account {
+            //get 本地資料庫
+//            let url = URL(string: "http://127.0.0.1/walkdog/getTable.php?account=\(account)")
             
             
-            let url = URL(string: "http://127.0.0.1/walkdog/getTable.php?account=\(account)")
+            //post
+//            https://sevensql-seventsai.c9users.io/getTable.php
+            //c9資料庫
+            let url = URL(string: "https://sevensql-seventsai.c9users.io/getTable.php")
+            let session = URLSession(configuration: .default)
+            
+            
+           var req = URLRequest(url: url!)
+            
+            req.httpMethod = "POST"
+            req.httpBody = "account=1234".data(using: .utf8)
+            
+            let task = session.dataTask(with: req, completionHandler: {(data, response,error) in
+                let source = String(data: data!, encoding: .utf8)
+                
+//                print(source!)
+                
+                DispatchQueue.main.async {
+                    do{
+                        
+                        
+                        let jsonobj = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+                        
+                        for a in  jsonobj as! [[String:String]] {
+                            //                        print(a["account"]!)
+                            
+                            
+                            self.mydata.append(a["account"]!)
+                            self.mydoing.append(a["doing"]!)
+                            
+                            
+                            
+                            
+                            
+                            
+                        }
+                        
+                        
+                        self.tbView.reloadData()
+                        
+                    }catch {
+                        print("thisis \(error)")
+                    }}
+                
+
+                
+                
+                
+            })
+        
+            task.resume()
+            
             //        do{
             //        let source = try String(contentsOf: url!)
             //
@@ -293,33 +345,40 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
             
             //        let session = URLSession(configuration: .default)
             //        let task = session.dataTask(with: url!, completionHandler: {(data, respose,error) in
+
+            
+            //讀本機 mysql可以
+//            do{
+//                
+//                let  data = try Data(contentsOf: url!)
+//                let jsonobj = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                
+//                for a in  jsonobj as! [[String:String]] {
+//                    print(a["account"]!)
+//                    mydata.append(a["account"]!)
+//                    mydoing.append(a["doing"]!)
+//                }
+//                
+//                
+//                
+//                
+//            }catch {}
+        
+        }else {
+            
+            //沒輸入帳號直接跑到的話 給他一個假帳號
+            print("no account")
+            //192.168.1.136
+//            169.254.227.115
+//            let url = URL(string: "http://127.0.0.1/walkdog/getTable.php?account=1234")
+//            let url = URL(string: "http://10.2.12.133/walkdog/getTable.php?account=1234")
             do{
                 let  data = try Data(contentsOf: url!)
                 let jsonobj = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
                 
                 for a in  jsonobj as! [[String:String]] {
                     print(a["account"]!)
-                    mydata.append(a["account"]!)
-                    mydoing.append(a["doing"]!)
-                }
-                
-                
-                
-                
-            }catch {}
-        
-        }else {
-            
-            //沒輸入帳號直接跑到的話 給他一個假帳號
-            print("no account")
-            let url = URL(string: "http://127.0.0.1/walkdog/getTable.php?account=1234")
-            do{
-                let  data = try Data(contentsOf: url!)
-                let jsonobj = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                
-                for a in  jsonobj as! [[String:String]] {
-                    print(a["mastername"]!)
-                    mydata.append(a["mastername"]!)                }
+                    mydata.append(a["account"]!)                }
 
             }catch {
                 print(error)
