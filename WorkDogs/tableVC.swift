@@ -164,17 +164,22 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 let json = ["doing":"\(doing)","lat":"\(nowLat!)","lng":"\(nowLng!)","pic":"\(imgTaken)"]
                 let doing:String = inputText.text!
                 
-                print(doing)
-                
-                print(json["lat"]!)
-                print(json["lng"]!)
-                print(json["pic"]!)
-                
-                
+//                print(doing)
+//                
+//                print(json["lat"]!)
+//                print(json["lng"]!)
+//                print(json["pic"]!)
                 
                 
-                let url = URL(string: "http://127.0.0.1/walkdog/postCard.php")
+                
+                //local db no use
+//                let url = URL(string: "http://127.0.0.1/walkdog/postCard.php")
+                //c9 db
+                let url = URL(string: "https://sevensql-seventsai.c9users.io/postCard.php")
 
+                
+                
+                
                 let session = URLSession(configuration: .default)
                 var request = URLRequest(url: url!)
                 
@@ -200,7 +205,11 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 print(json["lng"]!)
                 print(json["pic"]!)
                 
-                let url = URL(string: "http://127.0.0.1/walkdog/postCard.php")
+                //local db
+//                let url = URL(string: "http://127.0.0.1/walkdog/postCard.php")
+                //c9 db
+                let url = URL(string: "https://sevensql-seventsai.c9users.io/postCard.php")
+                
                 
                 let session = URLSession(configuration: .default)
                 var request = URLRequest(url: url!)
@@ -257,7 +266,17 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     
             mapWebView.loadRequest(request)
        
+        if app.account != nil {
+        print(app.account!)
+        }else{
+            print("didloag:no account")
+        }
         
+        if app.mastername != nil{
+        print(app.mastername!)
+        }else{
+            print("didload:no name")
+        }
         
    
     }
@@ -279,7 +298,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
      */
     func loadDB(){
         if let account = app.account {
-            //get 本地資料庫
+            //get 本地資料庫 不用了
 //            let url = URL(string: "http://127.0.0.1/walkdog/getTable.php?account=\(account)")
             
             
@@ -293,7 +312,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
            var req = URLRequest(url: url!)
             
             req.httpMethod = "POST"
-            req.httpBody = "account=1234".data(using: .utf8)
+            req.httpBody = "account=\(account)".data(using: .utf8)
             
             let task = session.dataTask(with: req, completionHandler: {(data, response,error) in
                 let source = String(data: data!, encoding: .utf8)

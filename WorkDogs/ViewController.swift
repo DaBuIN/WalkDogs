@@ -57,19 +57,12 @@ class ViewController: UIViewController {
 
             if source == "pass"{
                 
-                
                 self.app.account = account
                self.app.passwd = passwd
 
-                
-                
                 let vc = storyboard?.instantiateViewController(withIdentifier: "tableviewvc")
                 show(vc!, sender: self)
-                
-                
-              
-                
-                
+        
             
             }else if source == "passwdwrong"{
                     print("密碼錯了")
@@ -77,27 +70,22 @@ class ViewController: UIViewController {
             }else if source == "accountwrong"{
                 print("帳號錯了")
             }
-            
-            
-            
+
         }catch {
             print(error)
         }
-        
-        
-        
-        
-        
-        
+ 
     }
     
     
     //創建帳號密碼 送出鈕
     @IBAction func submitBtn(_ sender: Any) {
-        //本地
-        let url = URL(string: "http://127.0.0.1/walkdog/addMember.php")
+        //本地ＤＢ 不用
+//        let url = URL(string: "http://127.0.0.1/walkdog/addMember.php")
         
         //c9
+        let url = URL(string: "https://sevensql-seventsai.c9users.io/addMember.php")
+
         
         
         
@@ -128,14 +116,20 @@ class ViewController: UIViewController {
             
             //取得後端傳回字串 確認是否可以新增帳號
             do{
-                let urlGet = URL(string: "http://127.0.0.1/walkdog/addMember.php?account=\(account)&passwd=\(passwd)&mastername=\(mastername)")
+                //本地ＤＢ 不用了
+//                let urlGet = URL(string: "http://127.0.0.1/walkdog/addMember.php?account=\(account)&passwd=\(passwd)&mastername=\(mastername)")
+                
+                
+                // 用c9 ＰＨＰ與ＤＢ
+                let urlGet = URL(string: "https://sevensql-seventsai.c9users.io/addMember.php?account=\(account)&passwd=\(passwd)&mastername=\(mastername)")
+                
             let source = try String(contentsOf: urlGet!, encoding: .utf8)
 //                print(source)
-                //如果帳號存在
+                //如果帳號不存在
                 if source == "accountok" {
                     print("add OK")
                     self.app.account = account
-                    
+                    self.app.mastername = mastername
                     let vc = storyboard?.instantiateViewController(withIdentifier: "tableviewvc")
                     show(vc!, sender: self)
                     print("show")
