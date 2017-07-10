@@ -331,7 +331,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                             self.mydoing.append(a["doing"]!)
                             
                             
-                              print("gettable mastername=" + a["mastername"]!)
+//                              print("gettable mastername=" + a["mastername"]!)
                             
                             
                             
