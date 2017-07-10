@@ -302,8 +302,6 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
 //            let url = URL(string: "http://127.0.0.1/walkdog/getTable.php?account=\(account)")
             
             
-            
-//            https://sevensql-seventsai.c9users.io/getTable.php
             //c9資料庫 post
             let url = URL(string: "https://sevensql-seventsai.c9users.io/getTable.php")
             let session = URLSession(configuration: .default)
@@ -333,7 +331,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                             self.mydoing.append(a["doing"]!)
                             
                             
-                            
+                              print("gettable mastername=" + a["mastername"]!)
                             
                             
                             
