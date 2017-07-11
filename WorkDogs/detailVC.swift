@@ -20,7 +20,8 @@ class detailVC: UIViewController {
     @IBOutlet weak var dateTitle: UILabel!
     @IBOutlet weak var dateTime: UILabel!
     @IBOutlet weak var locationTitle: UILabel!
-    @IBOutlet weak var location: UILabel!
+    @IBOutlet weak var lngLabel: UILabel!
+    @IBOutlet weak var latLabel: UILabel!
     
     
     var idfromtbv:String?
@@ -41,6 +42,57 @@ class detailVC: UIViewController {
         idfromtbv =  app.sentToDetailId
         print(idfromtbv!)
         
+        let url = URL(string: "https://sevensql-seventsai.c9users.io/getJSONforDetail.php")
+        
+        let session = URLSession(configuration: .default)
+        var req = URLRequest(url: url!)
+        req.httpBody =  "idfromtbv=\(idfromtbv!)".data(using: .utf8)
+        req.httpMethod = "POST"
+        let task = session.dataTask(with: req, completionHandler: {(dataJSON,response,error) in
+            
+            
+            if error == nil {
+                do{
+                let source = String(data: dataJSON!, encoding: .utf8)
+
+                
+                let jsonObj = try JSONSerialization.jsonObject(with: dataJSON!, options: .allowFragments)
+                    
+                    for a in  jsonObj as! [[String:String]]{
+                    
+                        print(a["id"]!)
+                        
+                        print(a["dogpic"]!)
+                        print(a["mastername"]!)
+                         print(a["createdate"]!)
+                        print(a["lng"]!)
+                        print(a["lat"]!)
+
+                        DispatchQueue.main.async {
+                            self.hostName.text = a["mastername"]!
+                            self.dateTime.text = a["createdate"]!
+                            self.latLabel.text = "緯度：" + "" + a["lat"]!
+                            self.lngLabel.text = "經度：" + "" +  a["lng"]!
+                            self.doingThing.text = a["doing"]!
+                        }
+                        
+                        
+                        
+                    }
+                    
+                    
+                }catch{
+                    print(error)
+                }
+            
+                
+                
+            }else {
+                print(error)
+            }
+        })
+        
+        task.resume()
         
         
         
@@ -51,6 +103,9 @@ class detailVC: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
+       
+        
     }
     
 
