@@ -12,6 +12,20 @@ class detailVC: UIViewController {
 
     
     
+    @IBOutlet weak var detailImgView: UIImageView!
+    @IBOutlet weak var hostTitle: UILabel!
+    @IBOutlet weak var hostName: UILabel!
+    @IBOutlet weak var doingTitle: UILabel!
+    @IBOutlet weak var doingThing: UILabel!
+    @IBOutlet weak var dateTitle: UILabel!
+    @IBOutlet weak var dateTime: UILabel!
+    @IBOutlet weak var locationTitle: UILabel!
+    @IBOutlet weak var location: UILabel!
+    
+    
+    var idfromtbv:String?
+    
+    
     
     
     
@@ -22,7 +36,15 @@ class detailVC: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let app = UIApplication.shared.delegate as! AppDelegate
 
+        idfromtbv =  app.sentToDetailId
+        print(idfromtbv!)
+        
+        
+        
+        
+        
         // Do any additional setup after loading the view.
     }
 

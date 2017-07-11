@@ -22,9 +22,11 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
 //    var mydata:Array<String> = ["111","222","333","444","555","666","777","888","999","000"]
 //    var myimg = [UIImage(named: "c.png"),UIImage(named: "ball.png"),UIImage(named: "c.png"),UIImage(named: "apple.jpg"),UIImage(named: "c.png"),UIImage(named: "apple.jpg"),UIImage(named: "c.png"),UIImage(named: "apple.jpg"),UIImage(named: "c.png"),UIImage(named: "apple.jpg")]
     
-    
+    //顯示tbView content
     var mydata:Array<String> = []
     var mydoing:Array<String> = []
+    //gettable.php 回傳的ＪＳＯＮ的ＩＤ
+    var myidtoimg:Array<String> = []
 //
 //    var myimg:Array<UIImage> = []
     
@@ -39,7 +41,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     var nowLat:Double?
     var nowLng:Double?
     var imgTaken:UIImage?
-    
+    var sentToDetailId:String?
 ///////////////////////////////////////////////////////////////////////////////////
     
     
@@ -80,23 +82,32 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
         
         
     }
-    
+   
 
     //tableView select go where
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        gowhere(whereVC: indexPath.row)
+        
+         print(indexPath.row)
+        print(mydata[indexPath.row])
+        print(myidtoimg[indexPath.row])
+        self.app.sentToDetailId = myidtoimg[indexPath.row]
+        print(self.app.sentToDetailId)
+        gowhere(whichVC: indexPath.row)
+        
     }
     
     
     
-    func gowhere(whereVC:Int){
-        switch  whereVC {
-        case 0:
+    func gowhere(whichVC:Int){
+//        switch  whichVC {
+//        case 0:
+        
+        
             let vc = storyboard?.instantiateViewController(withIdentifier: "detailvc")
             show(vc!, sender: self)
-        default:
-            break
-        }
+//        default:
+//            break
+//        }
     
     
     }
@@ -163,7 +174,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     }
     
     
-    
+    //按取消時要消失
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: {() in } )
     }
@@ -201,9 +212,44 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
         let doing:String = inputText.text!
         if  doing != "" {
             
+            //先暫時塞給他一個UIImage
+                imgTaken = UIImage(named: "a.png")
+            //假裝拍照完
+            let data = UIImageJPEGRepresentation(imgTaken!, 0.9)
+            
+            imgView.image = imgTaken
+            
+            
+            //時間
+            let interval = Date.timeIntervalSinceReferenceDate
+            
+            
+            //圖片的命名(其路徑含名稱)
+            let imgFile = docDir + "/saveimg/\(app.account!)_\(interval).jpg"
+            print("imgFile:\(imgFile)")
+            //pathString to url
+            let urlFilePath = URL(fileURLWithPath: imgFile)
+            do {
+                //將data 存下來
+                
+                // 圖片的data url為？？
+                
+                
+                
+                try data?.write(to: urlFilePath)
+                //            try data?.write(to: urlFilePath)
+                print("save ok")
+            }catch {
+                print(error)
+            }
+            
+        
+            
             if let imgTaken = imgTaken {
+                
                 print("imgTaken")
-                let json = ["doing":"\(doing)","lat":"\(nowLat!)","lng":"\(nowLng!)","pic":"\(imgTaken)"]
+
+//                let json = ["doing":"\(doing)","lat":"\(nowLat!)","lng":"\(nowLng!)","dogpic":"imgpath"]
                 let doing:String = inputText.text!
                 
 //                print(doing)
@@ -221,35 +267,56 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
 
                 
                 
-                
                 let session = URLSession(configuration: .default)
                 var request = URLRequest(url: url!)
                 
-                request.httpBody = "account=\(app.account)&doing=\(doing)&lat=\(nowLat)&lng=\(nowLng)".data(using: .utf8)
-                request.httpMethod = "POST"
+
             
-//                let task = session.dataTask(with: request)
                 
+                request.httpBody = "account=\(app.account!)&doing=\(doing)&lat=\(nowLat!)&lng=\(nowLng!)&dogpic=\(imgFile)".data(using: .utf8)
+                request.httpMethod = "POST"
+                
+//                let task = session.dataTask(with: request)
                 let task = session.dataTask(with: request, completionHandler: {(data, response , error) in
+                    
+                 
+                    
                     
                     if  error != nil {
                         print("gg")
                     }else{
                         print("success")
-                        sleep(1)
+                        //                        sleep(1)
                         //                        self.loadDB()
                         //                        print("reload")
                     }
-                    
+//                    if let response = response {
+//                        print(response)
+//                        //睡一秒是為了等ＤＢ茲料上船好
+//                        
+//                                            sleep(1)
+//                        self.reflashTable()
+//                        
+//                        
+//                    }
                     
                     
                 })
                 
-                task.resume()
                 
-                //睡一下再重讀tableview 頁面
-                sleep(5)
+                task.resume()
+                //睡一秒是為了等ＤＢ茲料上船好
+                
+                sleep(1)
                 self.reflashTable()
+
+                
+                
+//              
+//                DispatchQueue.main.async {
+//                self.imgView.image = imgTaken
+//                }
+                
 
                 
                
@@ -258,16 +325,17 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 
             }else{
                 print("imgUnTaken")
+                imgView.image = imgTaken
 
                 let imageTaken = UIImage(named: "dog4")
                 let json = ["lat":"\(nowLat!)","lng":"\(nowLng!)","pic":"\(imgTaken)"]
                 let doing:String = inputText.text!
                 
-                print(doing)
-                
-                print(json["lat"]!)
-                print(json["lng"]!)
-                print(json["pic"]!)
+//                print(doing)
+//                
+//                print(json["lat"]!)
+//                print(json["lng"]!)
+//                print(json["pic"]!)
                 
                 //local db
 //                let url = URL(string: "http://127.0.0.1/walkdog/postCard.php")
@@ -284,13 +352,25 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
 //                let task = session.dataTask(with: request)
                 
                let task = session.dataTask(with: request, completionHandler: {(data, response , error) in
+                
+                
+                
+                if let response = response {
+                    print(response)
+                    //睡一秒是為了等ＤＢ茲料上船好
                     
+//                    sleep(1)
+                    self.reflashTable()
+                    
+
+                }
+                
+                
                     if  error != nil {
                         print("gg")
                     }else{
                         print("success")
-                        //睡一秒是為了等ＤＢ茲料上船好
-                        sleep(1)
+//                        sleep(1)
 //                        self.loadDB()
 //                        print("reload")
                 }
@@ -300,9 +380,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 })
                 
                 task.resume()
-                sleep(1)
-                self.reflashTable()
-                
+               
                 }
                 
             
@@ -313,7 +391,6 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
        
         
         
-       
       
         
       
@@ -326,6 +403,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
         
         let vc = storyboard?.instantiateViewController(withIdentifier: "tableviewvc")
         show(vc!, sender: self)
+        
     }
     
     
@@ -343,7 +421,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 print(error)
             }
             
-        }else {print("mydata exit")}
+        }else {print("mydata exist")}
     }
     
     
@@ -445,9 +523,11 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                             var mastername = a["mastername"]!
                             var doing = a["doing"]!
                             var createdate = a["createdate"]!
+                            var idforimg = a["id"]!
+                            
                             var pushContent = "\(mastername)" + "正在" + "\(doing)" + "於" + "\(createdate)"
                             
-                            
+                            self.myidtoimg.append("\(idforimg)")
                             
                             self.mydata.append("\(pushContent)")
                             //                            self.mydata.append(a["mastername"]!)

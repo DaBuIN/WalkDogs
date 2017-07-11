@@ -443,16 +443,16 @@
                                         <rect key="frame" x="0.0" y="267" width="375" height="267"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Xm6-UL-xaa" userLabel="firstStack">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="67"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地點" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJG-nB-p6V">
-                                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="89"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主子" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJG-nB-p6V">
+                                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="67"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="東寧公園" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ebi-qD-hl6">
-                                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="89"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大摳" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ebi-qD-hl6">
+                                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="67"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -460,16 +460,16 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="wqS-Qw-7Ub" userLabel="secondStack">
-                                                <rect key="frame" x="0.0" y="89" width="375" height="89"/>
+                                                <rect key="frame" x="0.0" y="67" width="375" height="66.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日期" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gZ-dx-AHz">
-                                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="89"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="從事活動" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gZ-dx-AHz">
+                                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="66.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20170704 18:00 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bIt-Ya-awR">
-                                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="89"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sleeping" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bIt-Ya-awR">
+                                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="66.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -477,16 +477,33 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="u7o-p8-sbk" userLabel="thirdStack">
-                                                <rect key="frame" x="0.0" y="178" width="375" height="89"/>
+                                                <rect key="frame" x="0.0" y="133.5" width="375" height="67"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eva-1c-Mit">
-                                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="89"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日期" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eva-1c-Mit">
+                                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="67"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFp-yJ-LJ0">
-                                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="89"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20170711" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFp-yJ-LJ0">
+                                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="67"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="grx-l0-Jzy" userLabel="fourthStack">
+                                                <rect key="frame" x="0.0" y="200.5" width="375" height="66.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地點" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwh-i0-YJ6" userLabel="地點">
+                                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="66.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="緯經度" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23Q-gW-Lb2">
+                                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="66.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -514,6 +531,17 @@
                             <constraint firstItem="46s-hG-dJc" firstAttribute="width" secondItem="bA4-kU-lCA" secondAttribute="width" id="r0S-Wb-3MO"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="dateTime" destination="bFp-yJ-LJ0" id="oPY-PY-1nR"/>
+                        <outlet property="dateTitle" destination="eva-1c-Mit" id="Y7k-yc-J9h"/>
+                        <outlet property="detailImgView" destination="OIV-lG-MXM" id="nLy-5u-VtL"/>
+                        <outlet property="doingThing" destination="bIt-Ya-awR" id="8oc-ij-0Bw"/>
+                        <outlet property="doingTitle" destination="6gZ-dx-AHz" id="mc6-1g-Tgr"/>
+                        <outlet property="hostName" destination="Ebi-qD-hl6" id="QKO-pI-DuM"/>
+                        <outlet property="hostTitle" destination="XJG-nB-p6V" id="DSJ-jw-klf"/>
+                        <outlet property="location" destination="23Q-gW-Lb2" id="Yns-lD-8Ck"/>
+                        <outlet property="locationTitle" destination="bwh-i0-YJ6" id="KIX-zp-vlL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MFD-wc-jiJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
