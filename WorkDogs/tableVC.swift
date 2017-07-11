@@ -41,10 +41,21 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
 ///////////////////////////////////////////////////////////////////////////////////
     
     
+    
+    @IBAction func reload(_ sender: Any) {
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "tableviewvc")
+//        show(vc!, sender: self)
+
+        
+        reflashTable()
+        
+    }
+    
+    
     //tableview幾列
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mydata.count
-        
+    
     }
     
     
@@ -55,12 +66,12 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
         let cell = tbView.dequeueReusableCell(withIdentifier: "tbcell") as! tableViewCell
         
         cell.dogNameLabel.text = mydata[indexPath.row]
-        cell.doingLabel.text = mydoing[indexPath.row]
+//        cell.doingLabel.text = mydoing[indexPath.row]
 //        cell.selfPhoto.image = myimg[indexPath.row]
         
         cell.accessoryType = .disclosureIndicator
         
-        
+
         
         return cell
         
@@ -185,13 +196,19 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 
                 request.httpBody = "account=\(app.account)&doing=\(doing)&lat=\(nowLat)&lng=\(nowLng)".data(using: .utf8)
                 request.httpMethod = "POST"
-                
+            
                 let task = session.dataTask(with: request)
                 
                 task.resume()
                 
+//                DispatchQueue.main.async {
+//                    self.tbView.reloadData()
+//
+//                }
+
                 
-                
+               
+
                 
                 
             }else{
@@ -217,12 +234,30 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 request.httpBody = "account=\(app.account!)&doing=\(doing)&lat=\(nowLat!)&lng=\(nowLng!)".data(using: .utf8)
                 request.httpMethod = "POST"
                 
-                let task = session.dataTask(with: request)
+//                let task = session.dataTask(with: request)
+                
+               let task = session.dataTask(with: request, completionHandler: {(data, response , error) in
+                    
+                    if  error != nil {
+                        print("gg")
+                    }else{
+                        print("success")
+                        sleep(1)
+//                        self.loadDB()
+//                        print("reload")
+                }
+                
+                    
+                    
+                })
                 
                 task.resume()
+                sleep(1)
+                self.reflashTable()
                 
+                }
                 
-            }
+            
         
         
         }
@@ -236,6 +271,13 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
       
         
         
+    }
+    
+    
+    func reflashTable(){
+        
+        let vc = storyboard?.instantiateViewController(withIdentifier: "tableviewvc")
+        show(vc!, sender: self)
     }
     
     
@@ -281,10 +323,10 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
    
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-    }
+//    override func didReceiveMemoryWarning() {
+//        super.didReceiveMemoryWarning()
+//        
+//    }
     
     
     /*
@@ -327,8 +369,18 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                             //                        print(a["account"]!)
                             
                             
-                            self.mydata.append(a["account"]!)
-                            self.mydoing.append(a["doing"]!)
+                           print (a["mastername"]! + "正在" + a["doing"]! + "於" + a["createdate"]!)
+                            
+                            var mastername = a["mastername"]!
+                            var doing = a["doing"]!
+                            var createdate = a["createdate"]!
+                            var pushContent = "\(mastername)" + "正在" + "\(doing)" + "於" + "\(createdate)"
+                            
+                            
+                            
+                            self.mydata.append("\(pushContent)")
+                            //                            self.mydata.append(a["mastername"]!)
+//                            self.mydoing.append(a["doing"]!)
                             
                             
 //                              print("gettable mastername=" + a["mastername"]!)
