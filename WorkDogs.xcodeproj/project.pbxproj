@@ -155,7 +155,7 @@
 				TargetAttributes = {
 					14F02B561F0DC6EB00CB65B5 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 95TF683BY5;
+						DevelopmentTeam = NMM9F9QK67;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -339,10 +339,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 95TF683BY5;
+				DEVELOPMENT_TEAM = NMM9F9QK67;
 				INFOPLIST_FILE = WorkDogs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tw.com.seven.WorkDogs;
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.seven7788.WorkDogs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -352,10 +352,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 95TF683BY5;
+				DEVELOPMENT_TEAM = NMM9F9QK67;
 				INFOPLIST_FILE = WorkDogs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tw.com.seven.WorkDogs;
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.seven7788.WorkDogs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

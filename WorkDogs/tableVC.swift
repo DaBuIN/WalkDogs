@@ -13,6 +13,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     
     let app = UIApplication.shared.delegate as! AppDelegate
 
+    @IBOutlet weak var imgTest: UIImageView!
     
     @IBOutlet weak var inputText: UITextField!
     @IBOutlet weak var imgView: UIImageView!
@@ -30,7 +31,8 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     
     var url = URL(string: "")
     
-    
+    let fmgr = FileManager.default
+    let docDir = NSHomeDirectory() + "/Documents"
     
     let lmgr = CLLocationManager()
     
@@ -126,7 +128,35 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
          imgTaken = info[UIImagePickerControllerOriginalImage] as! UIImage
        
+        let data = UIImageJPEGRepresentation(imgTaken!, 0.9)
+  
         imgView.image = imgTaken
+        
+        
+        //時間
+        let interval = Date.timeIntervalSinceReferenceDate
+        
+        
+        //圖片的命名(其路徑含名稱)
+        let imgFile = docDir + "/saveimg/\(app.account)_\(interval).jpg"
+        print("imgFile:\(imgFile)")
+        //pathString to url
+        let urlFilePath = URL(fileURLWithPath: imgFile)
+        do {
+            //將data 存下來
+            
+            // 圖片的data url為？？
+            
+            
+            
+            try data?.write(to: urlFilePath)
+            //            try data?.write(to: urlFilePath)
+            print("save ok")
+        }catch {
+            print(error)
+        }
+
+        
 
         
         dismiss(animated: true, completion: {() in })
@@ -158,7 +188,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
             let lat = loc.coordinate.latitude
             let lng = loc.coordinate.longitude
             let h = loc.altitude
-            print("\(lat):\(lng):\(h)")
+//            print("\(lat):\(lng):\(h)")
             nowLat = lat
             nowLng = lng
         }
@@ -172,6 +202,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
         if  doing != "" {
             
             if let imgTaken = imgTaken {
+                print("imgTaken")
                 let json = ["doing":"\(doing)","lat":"\(nowLat!)","lng":"\(nowLng!)","pic":"\(imgTaken)"]
                 let doing:String = inputText.text!
                 
@@ -197,14 +228,28 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 request.httpBody = "account=\(app.account)&doing=\(doing)&lat=\(nowLat)&lng=\(nowLng)".data(using: .utf8)
                 request.httpMethod = "POST"
             
-                let task = session.dataTask(with: request)
+//                let task = session.dataTask(with: request)
+                
+                let task = session.dataTask(with: request, completionHandler: {(data, response , error) in
+                    
+                    if  error != nil {
+                        print("gg")
+                    }else{
+                        print("success")
+                        sleep(1)
+                        //                        self.loadDB()
+                        //                        print("reload")
+                    }
+                    
+                    
+                    
+                })
                 
                 task.resume()
                 
-//                DispatchQueue.main.async {
-//                    self.tbView.reloadData()
-//
-//                }
+                //睡一下再重讀tableview 頁面
+                sleep(5)
+                self.reflashTable()
 
                 
                
@@ -212,8 +257,10 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 
                 
             }else{
-            
-                let json = ["lat":"\(nowLat!)","lng":"\(nowLng!)","pic":""]
+                print("imgUnTaken")
+
+                let imageTaken = UIImage(named: "dog4")
+                let json = ["lat":"\(nowLat!)","lng":"\(nowLng!)","pic":"\(imgTaken)"]
                 let doing:String = inputText.text!
                 
                 print(doing)
@@ -242,6 +289,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                         print("gg")
                     }else{
                         print("success")
+                        //睡一秒是為了等ＤＢ茲料上船好
                         sleep(1)
 //                        self.loadDB()
 //                        print("reload")
@@ -273,7 +321,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
         
     }
     
-    
+    //重新導到這頁。為了reflash tbcell content用
     func reflashTable(){
         
         let vc = storyboard?.instantiateViewController(withIdentifier: "tableviewvc")
@@ -281,6 +329,22 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     }
     
     
+    //確認 拍照相片的儲存路徑是否存在。 在viewdidload先執行
+    func checkImgPath(dirImg:String){
+    
+        
+        //先檢查資料夾在不在。不在的話先新增
+        if !fmgr.fileExists(atPath: dirImg) {
+            
+            do{
+                try fmgr.createDirectory(atPath: dirImg, withIntermediateDirectories: true, attributes: nil)
+                print("create Dir")
+            }catch{
+                print(error)
+            }
+            
+        }else {print("mydata exit")}
+    }
     
     
     
@@ -288,7 +352,14 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print("123")
+        print("123")
+//        let interval2 = Date.timeIntervalSinceReferenceDate
+//        print(interval2)
+        //確認相片將存之路徑是否存在
+        let dirImg = docDir +  "/saveimg"
+        print(dirImg)
+        checkImgPath(dirImg: dirImg)
+        
         //讀取ＴＡＢＬＥＶＩＥＷ
         loadDB()
         
@@ -308,17 +379,17 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     
             mapWebView.loadRequest(request)
        
-        if app.account != nil {
-        print(app.account!)
-        }else{
-            print("didloag:no account")
-        }
-        
-        if app.mastername != nil{
-        print(app.mastername!)
-        }else{
-            print("didload:no name")
-        }
+//        if app.account != nil {
+//        print(app.account!)
+//        }else{
+//            print("didloag:no account")
+//        }
+//        
+//        if app.mastername != nil{
+//        print(app.mastername!)
+//        }else{
+//            print("didload:no name")
+//        }
         
    
     }
@@ -369,7 +440,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                             //                        print(a["account"]!)
                             
                             
-                           print (a["mastername"]! + "正在" + a["doing"]! + "於" + a["createdate"]!)
+//                           print (a["mastername"]! + "正在" + a["doing"]! + "於" + a["createdate"]!)
                             
                             var mastername = a["mastername"]!
                             var doing = a["doing"]!
