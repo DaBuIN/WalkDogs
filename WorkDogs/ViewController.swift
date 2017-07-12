@@ -10,6 +10,23 @@ import UIKit
 
 class ViewController: UIViewController {
     
+//    @IBOutlet weak var addmemberAccLabel: UILabel!
+//   
+//    
+//    @IBOutlet weak var addmemberPwdLabel: UILabel!
+//    
+//    @IBOutlet weak var addmemberMNameLabel: UILabel!
+    
+    
+    @IBOutlet weak var addMemberBtnOutlet: UIButton!
+    
+    @IBOutlet weak var loginBtnOutlet: UIButton!
+    
+//    @IBOutlet weak var loginAccLebel: UILabel!
+//    
+//    @IBOutlet weak var loginPwdLebel: UILabel!
+    
+    
     @IBOutlet weak var loginAcc: UITextField!
     
     @IBOutlet weak var loginPwd: UITextField!
@@ -36,44 +53,102 @@ class ViewController: UIViewController {
     var passwd:String?
     var mastername:String?
     
+    var isLogin = true
     
     
+    //segmented 切換鈕。切換登入或註冊
+    @IBAction func segAction(_ sender: Any) {
+        switch segmentedC.selectedSegmentIndex {
+        case 0:
+            isLogin = false
+            addMemberOrLoginState()
+        case 1:
+            isLogin = true
+            addMemberOrLoginState()
+        default:
+            isLogin = false
+            addMemberOrLoginState()
+            
+        }
+    }
+    
+    func addMemberOrLoginState(){
+        //註冊時
+        if isLogin == false {
+            loginAcc.isHidden = true
+            loginPwd.isHidden = true
+//            loginAccLebel.isHidden = true
+//            loginPwdLebel.isHidden = true
+            loginBtnOutlet.isHidden = true
+         
+//            addmemberAccLabel.isHidden = false
+//            addmemberPwdLabel.isHidden = false
+//            addmemberMNameLabel.isHidden = false
+            addMemberBtnOutlet.isHidden = false
+            accountText.isHidden = false
+            passwdText.isHidden = false
+            masternameText.isHidden = false
+            //登入時
+        }else {
+        
+            loginAcc.isHidden = false
+            loginPwd.isHidden = false
+//            loginAccLebel.isHidden = false
+//            loginPwdLebel.isHidden = false
+            loginBtnOutlet.isHidden = false
+            
+//            addmemberAccLabel.isHidden = true
+//            addmemberPwdLabel.isHidden = true
+//            addmemberMNameLabel.isHidden = true
+            addMemberBtnOutlet.isHidden = true
+            accountText.isHidden = true
+            passwdText.isHidden = true
+            masternameText.isHidden = true
+        }
+    
+    }
+    
+//    func changeToLogin(){
+//       
+//    }
     
     //登入帳密鈕
     @IBAction func login(_ sender: Any) {
-        
-        
-        do{
-        let account = loginAcc.text!
-        let passwd = loginPwd.text!
+  
             
-            //本地
-//            let urlString:String = "http://127.0.0.1/walkdog/checkLogin.php?account=\(account)&passwd=\(passwd)"
-            //c9
-            let urlString:String = "https://sevensql-seventsai.c9users.io/checkLogin.php?account=\(account)&passwd=\(passwd)"
-            
-        let url = URL(string: urlString)
-        let source = try String(contentsOf: url!, encoding: .utf8)
-
-            if source == "pass"{
+            do{
+                let account = loginAcc.text!
+                let passwd = loginPwd.text!
                 
-                self.app.account = account
-               self.app.passwd = passwd
-
-                let vc = storyboard?.instantiateViewController(withIdentifier: "tableviewvc")
-                show(vc!, sender: self)
-        
-            
-            }else if source == "passwdwrong"{
+                //本地
+                //            let urlString:String = "http://127.0.0.1/walkdog/checkLogin.php?account=\(account)&passwd=\(passwd)"
+                //c9
+                let urlString:String = "https://sevensql-seventsai.c9users.io/checkLogin.php?account=\(account)&passwd=\(passwd)"
+                
+                let url = URL(string: urlString)
+                let source = try String(contentsOf: url!, encoding: .utf8)
+                
+                if source == "pass"{
+                    
+                    self.app.account = account
+                    self.app.passwd = passwd
+                    
+                    let vc = storyboard?.instantiateViewController(withIdentifier: "tableviewvc")
+                    show(vc!, sender: self)
+                    
+                    
+                }else if source == "passwdwrong"{
                     print("密碼錯了")
-            
-            }else if source == "accountwrong"{
-                print("帳號錯了")
+                    
+                }else if source == "accountwrong"{
+                    print("帳號錯了")
+                }
+                
+            }catch {
+                print(error)
             }
-
-        }catch {
-            print(error)
-        }
+        
+        
  
     }
     
@@ -154,28 +229,9 @@ class ViewController: UIViewController {
             }
             
             
-            
-           
-           
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        
         }else { print("no words")
             alertEmpty()
         }
-        
-        
-        
-        
         
     }
     
@@ -219,23 +275,14 @@ class ViewController: UIViewController {
     
     
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        
-//        if(segue.identifier == "tableviewvc"){
-//            
-//            let vc = segue.destination as! tableVC
-//            
-//            
-//            
-//        }
-//    }
-    
+   
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-  
+        
+        isLogin = true
+        addMemberOrLoginState()
         
     }
 

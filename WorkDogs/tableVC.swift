@@ -148,25 +148,21 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
         
         //時間
         let interval = Date.timeIntervalSinceReferenceDate
+        //                let docDir = NSHomeDirectory() + "/Documents"
         
+        let imgRelativePath = "/saveimg/\(app.account!)_\(interval).jpg"
         
         //圖片的命名(其路徑含名稱)
-        
-        //    let docDir = NSHomeDirectory() + "/Documents"
-
-         imgFile = docDir + "/saveimg/\(app.account!)_\(interval).jpg"
+        let imgFile = "\(docDir)\(imgRelativePath)"
         print("imgFile:\(imgFile)")
         //pathString to url
-        let urlFilePath = URL(fileURLWithPath: imgFile!)
+        let urlFilePath = URL(fileURLWithPath: imgFile)
         do {
             //將data 存下來
             
-            // 圖片的data url為？？
-            
-            
             
             try data?.write(to: urlFilePath)
-            //            try data?.write(to: urlFilePath)
+            
             print("save ok")
         }catch {
             print(error)
@@ -218,7 +214,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
         if  doing != "" {
             
             //先暫時塞給他一個UIImage
-                imgTaken = UIImage(named: "dog3.png")
+//                imgTaken = UIImage(named: "dog3.png")
             
         
             
@@ -264,9 +260,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
 //                print(json["lat"]!)
 //                print(json["lng"]!)
 //                print(json["pic"]!)
-                
-                
-                
+
                 //local db no use
 //                let url = URL(string: "http://127.0.0.1/walkdog/postCard.php")
                 //c9 db
@@ -283,7 +277,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 request.httpBody = "account=\(app.account!)&doing=\(doing)&lat=\(nowLat!)&lng=\(nowLng!)&dogpic=\(imgRelativePath)".data(using: .utf8)
                 request.httpMethod = "POST"
                 
-//                let task = session.dataTask(with: request)
+     
                 let task = session.dataTask(with: request, completionHandler: {(data, response , error) in
                     
                  
@@ -293,19 +287,8 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                         print("gg")
                     }else{
                         print("success")
-                        //                        sleep(1)
-                        //                        self.loadDB()
-                        //                        print("reload")
+                        
                     }
-//                    if let response = response {
-//                        print(response)
-//                        //睡一秒是為了等ＤＢ茲料上船好
-//                        
-//                                            sleep(1)
-//                        self.reflashTable()
-//                        
-//                        
-//                    }
                     
                     
                 })
@@ -317,22 +300,12 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 sleep(1)
                 self.reflashTable()
 
-                
-                
-//              
-//                DispatchQueue.main.async {
-//                self.imgView.image = imgTaken
-//                }
-                
 
-                
                
-
-                
-                
             }else{
+                //如果沒有上傳照片
                 print("imgUnTaken")
-
+                //預設照片
                 let imageTaken = UIImage(named: "dog4")
 //                let json = ["lat":"\(nowLat!)","lng":"\(nowLng!)","pic":"\(imgTaken)"]
                 let doing:String = inputText.text!

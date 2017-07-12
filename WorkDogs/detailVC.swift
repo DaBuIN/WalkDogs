@@ -44,6 +44,8 @@ class detailVC: UIViewController {
         //如果空白或資料庫存成""
         if imgPath.isEmpty || imgPath == "\"\"" {
             print("no image")
+            let imgDefault = UIImage(named: "dog4")
+            self.detailImgView.image = imgDefault
         }else {
             //真實路徑為家路徑+document+相對路徑
               let realPath = "\(docDir)\(imgPath)"
