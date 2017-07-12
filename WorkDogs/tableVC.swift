@@ -151,7 +151,10 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
         
         
         //圖片的命名(其路徑含名稱)
-         imgFile = docDir + "/saveimg/\(app.account)_\(interval).jpg"
+        
+        //    let docDir = NSHomeDirectory() + "/Documents"
+
+         imgFile = docDir + "/saveimg/\(app.account!)_\(interval).jpg"
         print("imgFile:\(imgFile)")
         //pathString to url
         let urlFilePath = URL(fileURLWithPath: imgFile!)
@@ -215,7 +218,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
         if  doing != "" {
             
             //先暫時塞給他一個UIImage
-//                imgTaken = UIImage(named: "a.png")
+                imgTaken = UIImage(named: "dog3.png")
             
         
             
@@ -224,33 +227,32 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 print("imgTaken")
                 
                 //假裝拍照完
-//                let data = UIImageJPEGRepresentation(imgTaken, 0.9)
-//                
-//                imgView.image = imgTaken
-//                
-//                
-//                //時間
-//                let interval = Date.timeIntervalSinceReferenceDate
-//                
-//                
-//                //圖片的命名(其路徑含名稱)
-//                let imgFile = docDir + "/saveimg/\(app.account!)_\(interval).jpg"
-//                print("imgFile:\(imgFile)")
-//                //pathString to url
-//                let urlFilePath = URL(fileURLWithPath: imgFile)
-//                do {
-//                    //將data 存下來
-//                    
-//                    // 圖片的data url為？？
-//                    
-//                    
-//                    
-//                    try data?.write(to: urlFilePath)
-//                    //            try data?.write(to: urlFilePath)
-//                    print("save ok")
-//                }catch {
-//                    print(error)
-//                }
+                let data = UIImageJPEGRepresentation(imgTaken, 0.9)
+                
+                imgView.image = imgTaken
+                
+                
+                //時間
+                let interval = Date.timeIntervalSinceReferenceDate
+//                let docDir = NSHomeDirectory() + "/Documents"
+
+                let imgRelativePath = "/saveimg/\(app.account!)_\(interval).jpg"
+                
+                //圖片的命名(其路徑含名稱)
+                let imgFile = "\(docDir)\(imgRelativePath)"
+                print("imgFile:\(imgFile)")
+                //pathString to url
+                let urlFilePath = URL(fileURLWithPath: imgFile)
+                do {
+                    //將data 存下來
+   
+                    
+                    try data?.write(to: urlFilePath)
+                  
+                    print("save ok")
+                }catch {
+                    print(error)
+                }
 
                 
 
@@ -278,7 +280,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
 
             
                 
-                request.httpBody = "account=\(app.account!)&doing=\(doing)&lat=\(nowLat!)&lng=\(nowLng!)&dogpic=\(imgFile)".data(using: .utf8)
+                request.httpBody = "account=\(app.account!)&doing=\(doing)&lat=\(nowLat!)&lng=\(nowLng!)&dogpic=\(imgRelativePath)".data(using: .utf8)
                 request.httpMethod = "POST"
                 
 //                let task = session.dataTask(with: request)
@@ -330,10 +332,9 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 
             }else{
                 print("imgUnTaken")
-                imgView.image = imgTaken
 
                 let imageTaken = UIImage(named: "dog4")
-                let json = ["lat":"\(nowLat!)","lng":"\(nowLng!)","pic":"\(imgTaken)"]
+//                let json = ["lat":"\(nowLat!)","lng":"\(nowLng!)","pic":"\(imgTaken)"]
                 let doing:String = inputText.text!
                 
 //                print(doing)

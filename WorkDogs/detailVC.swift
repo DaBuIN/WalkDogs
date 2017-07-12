@@ -13,6 +13,7 @@ class detailVC: UIViewController {
     
     
     @IBOutlet weak var detailImgView: UIImageView!
+   
     @IBOutlet weak var hostTitle: UILabel!
     @IBOutlet weak var hostName: UILabel!
     @IBOutlet weak var doingTitle: UILabel!
@@ -26,7 +27,7 @@ class detailVC: UIViewController {
     
     var idfromtbv:String?
     
-    
+    let fmgr = FileManager.default
     
     
     
@@ -35,13 +36,52 @@ class detailVC: UIViewController {
         show(vc!, sender: self)
         
     }
+    
+    
+    //show detail img when viewdidload
+        //傳 imgPath(絕對路徑) docDir(家路徑+document)
+    func showImg(imgPath:String,docDir:String){
+        //如果空白或資料庫存成""
+        if imgPath.isEmpty || imgPath == "\"\"" {
+            print("no image")
+        }else {
+            //真實路徑為家路徑+document+相對路徑
+              let realPath = "\(docDir)\(imgPath)"
+            if fmgr.fileExists(atPath: realPath){
+            
+         
+              
+                print("realpath:\(realPath)")
+                
+                let img = UIImage(contentsOfFile: "\(realPath)")
+                self.detailImgView.image = img
+                
+                
+             
+            }
+
+        }
+        
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let app = UIApplication.shared.delegate as! AppDelegate
+        
+        //宣告家路徑
+        let docDir = NSHomeDirectory() + "/Documents"
+        print("detailHOME:\(docDir)")
+//        let img = UIImage(named: "ball.png")
+//        detailImgView.image = img
 
+        
+        //從tbview取得之該項目的(id)
         idfromtbv =  app.sentToDetailId
         print(idfromtbv!)
         
+        //開始要資料
         let url = URL(string: "https://sevensql-seventsai.c9users.io/getJSONforDetail.php")
         
         let session = URLSession(configuration: .default)
@@ -53,34 +93,36 @@ class detailVC: UIViewController {
             
             if error == nil {
                 do{
-                let source = String(data: dataJSON!, encoding: .utf8)
-
-                
+            
+                //解析ＪＳＯＮ
                 let jsonObj = try JSONSerialization.jsonObject(with: dataJSON!, options: .allowFragments)
                     
                     for a in  jsonObj as! [[String:String]]{
                     
                         print(a["id"]!)
-                        
                         print(a["dogpic"]!)
                         print(a["mastername"]!)
                          print(a["createdate"]!)
                         print(a["lng"]!)
                         print(a["lat"]!)
-
+                        //變更文字及圖檔於背景執行
                         DispatchQueue.main.async {
+                            let imgPath = a["dogpic"]
+                            self.showImg(imgPath: imgPath!, docDir: docDir)
+                            
                             self.hostName.text = a["mastername"]!
                             self.dateTime.text = a["createdate"]!
                             self.latLabel.text = "緯度：" + "" + a["lat"]!
                             self.lngLabel.text = "經度：" + "" +  a["lng"]!
                             self.doingThing.text = a["doing"]!
+                            
                         }
                         
                         
                         
                     }
                     
-                    
+                  
                 }catch{
                     print(error)
                 }
@@ -88,7 +130,7 @@ class detailVC: UIViewController {
                 
                 
             }else {
-                print(error)
+                print("detail error:\(error)")
             }
         })
         
