@@ -42,6 +42,8 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     var nowLng:Double?
     var imgTaken:UIImage?
     var sentToDetailId:String?
+    var imgFile:String?
+    
 ///////////////////////////////////////////////////////////////////////////////////
     
     
@@ -149,10 +151,10 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
         
         
         //圖片的命名(其路徑含名稱)
-        let imgFile = docDir + "/saveimg/\(app.account)_\(interval).jpg"
+         imgFile = docDir + "/saveimg/\(app.account)_\(interval).jpg"
         print("imgFile:\(imgFile)")
         //pathString to url
-        let urlFilePath = URL(fileURLWithPath: imgFile)
+        let urlFilePath = URL(fileURLWithPath: imgFile!)
         do {
             //將data 存下來
             
@@ -213,41 +215,44 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
         if  doing != "" {
             
             //先暫時塞給他一個UIImage
-                imgTaken = UIImage(named: "a.png")
-            //假裝拍照完
-            let data = UIImageJPEGRepresentation(imgTaken!, 0.9)
-            
-            imgView.image = imgTaken
-            
-            
-            //時間
-            let interval = Date.timeIntervalSinceReferenceDate
-            
-            
-            //圖片的命名(其路徑含名稱)
-            let imgFile = docDir + "/saveimg/\(app.account!)_\(interval).jpg"
-            print("imgFile:\(imgFile)")
-            //pathString to url
-            let urlFilePath = URL(fileURLWithPath: imgFile)
-            do {
-                //將data 存下來
-                
-                // 圖片的data url為？？
-                
-                
-                
-                try data?.write(to: urlFilePath)
-                //            try data?.write(to: urlFilePath)
-                print("save ok")
-            }catch {
-                print(error)
-            }
+//                imgTaken = UIImage(named: "a.png")
             
         
             
             if let imgTaken = imgTaken {
-                
+            
                 print("imgTaken")
+                
+                //假裝拍照完
+//                let data = UIImageJPEGRepresentation(imgTaken, 0.9)
+//                
+//                imgView.image = imgTaken
+//                
+//                
+//                //時間
+//                let interval = Date.timeIntervalSinceReferenceDate
+//                
+//                
+//                //圖片的命名(其路徑含名稱)
+//                let imgFile = docDir + "/saveimg/\(app.account!)_\(interval).jpg"
+//                print("imgFile:\(imgFile)")
+//                //pathString to url
+//                let urlFilePath = URL(fileURLWithPath: imgFile)
+//                do {
+//                    //將data 存下來
+//                    
+//                    // 圖片的data url為？？
+//                    
+//                    
+//                    
+//                    try data?.write(to: urlFilePath)
+//                    //            try data?.write(to: urlFilePath)
+//                    print("save ok")
+//                }catch {
+//                    print(error)
+//                }
+
+                
 
 //                let json = ["doing":"\(doing)","lat":"\(nowLat!)","lng":"\(nowLng!)","dogpic":"imgpath"]
                 let doing:String = inputText.text!
@@ -346,7 +351,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 let session = URLSession(configuration: .default)
                 var request = URLRequest(url: url!)
                 
-                request.httpBody = "account=\(app.account!)&doing=\(doing)&lat=\(nowLat!)&lng=\(nowLng!)".data(using: .utf8)
+                request.httpBody = "account=\(app.account!)&doing=\(doing)&lat=\(nowLat!)&lng=\(nowLng!)&dogpic=\"\"".data(using: .utf8)
                 request.httpMethod = "POST"
                 
 //                let task = session.dataTask(with: request)
@@ -355,15 +360,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 
                 
                 
-                if let response = response {
-                    print(response)
-                    //睡一秒是為了等ＤＢ茲料上船好
-                    
-//                    sleep(1)
-                    self.reflashTable()
-                    
-
-                }
+                
                 
                 
                     if  error != nil {
@@ -380,7 +377,9 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 })
                 
                 task.resume()
-               
+                sleep(1)
+                self.reflashTable()
+
                 }
                 
             
