@@ -13,7 +13,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     
     let app = UIApplication.shared.delegate as! AppDelegate
 
-    @IBOutlet weak var imgTest: UIImageView!
+//    @IBOutlet weak var imgTest: UIImageView!
     
     @IBOutlet weak var inputText: UITextField!
     @IBOutlet weak var imgView: UIImageView!
@@ -25,6 +25,8 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     //顯示tbView content
     var mydata:Array<String> = []
     var mydoing:Array<String> = []
+    var mydate:Array<String> = []
+
     //gettable.php 回傳的ＪＳＯＮ的ＩＤ
     var myidtoimg:Array<String> = []
 //
@@ -74,7 +76,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
         cell.dogNameLabel.text = mydata[indexPath.row]
 //        cell.doingLabel.text = mydoing[indexPath.row]
 //        cell.selfPhoto.image = myimg[indexPath.row]
-        
+        cell.dateTimeLabel.text = mydate[indexPath.row]
         cell.accessoryType = .disclosureIndicator
         
 
@@ -498,11 +500,16 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                             var createdate = a["createdate"]!
                             var idforimg = a["id"]!
                             
-                            var pushContent = "\(mastername)" + "正在" + "\(doing)" + "於" + "\(createdate)"
+                            var pushContent = "\(mastername)" + "正在" + "\(doing)"
                             
+                            //應該是辨識圖片的id
                             self.myidtoimg.append("\(idforimg)")
-                            
+                            //名字與動作
                             self.mydata.append("\(pushContent)")
+                            //時間顯示
+                            self.mydate.append("\(createdate)")
+
+                            
                             //                            self.mydata.append(a["mastername"]!)
 //                            self.mydoing.append(a["doing"]!)
                             

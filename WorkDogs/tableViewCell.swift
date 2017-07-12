@@ -14,11 +14,11 @@ class tableViewCell: UITableViewCell {
     
     @IBOutlet weak var dogNameLabel: UILabel!
    
-    @IBOutlet weak var locationLabel: UILabel!
+//    @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var dateTimeLabel: UILabel!
    
     
-    @IBOutlet weak var doingLabel: UILabel!
+//    @IBOutlet weak var doingLabel: UILabel!
     
     
     
