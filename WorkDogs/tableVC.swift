@@ -26,6 +26,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     var mydata:Array<String> = []
     var mydoing:Array<String> = []
     var mydate:Array<String> = []
+    var myphoto:Array<String> = []
 
     //gettable.php 回傳的ＪＳＯＮ的ＩＤ
     var myidtoimg:Array<String> = []
@@ -47,6 +48,15 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
     var imgFile:String?
     
 ///////////////////////////////////////////////////////////////////////////////////
+    
+    
+    
+    
+    @IBAction func logout(_ sender: Any) {
+        app.cleanVar()
+        let vc = storyboard?.instantiateViewController(withIdentifier: "home")
+        show(vc!, sender: self)
+    }
     
     
     
@@ -77,6 +87,16 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
 //        cell.doingLabel.text = mydoing[indexPath.row]
 //        cell.selfPhoto.image = myimg[indexPath.row]
         cell.dateTimeLabel.text = mydate[indexPath.row]
+        
+        var photoPath = docDir + myphoto[indexPath.row]
+        
+        
+        let img = UIImage(named: "dog.png")
+        print("tableView image 路徑測試：\(photoPath)")
+//        cell.selfPhoto.image = img
+        
+        cell.selfPhoto.image = UIImage(contentsOfFile: photoPath)
+        
         cell.accessoryType = .disclosureIndicator
         
 
@@ -308,8 +328,46 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 //如果沒有上傳照片
                 print("imgUnTaken")
                 //預設照片
-                let imageTaken = UIImage(named: "dog4")
+                let imgTaken = UIImage(named: "a")
+                
+                
+                
+                
+                let data = UIImageJPEGRepresentation(imgTaken!, 0.9)
+                
+                imgView.image = imgTaken
+                
+                
+                //時間
+                let interval = Date.timeIntervalSinceReferenceDate
+                //                let docDir = NSHomeDirectory() + "/Documents"
+                
+                let imgRelativePath = "/saveimg/\(app.account!)_\(interval).jpg"
+                
+                //圖片的命名(其路徑含名稱)
+                let imgFile = "\(docDir)\(imgRelativePath)"
+                print("imgFile:\(imgFile)")
+                //pathString to url
+                let urlFilePath = URL(fileURLWithPath: imgFile)
+                do {
+                    //將data 存下來
+                    
+                    
+                    try data?.write(to: urlFilePath)
+                    
+                    print("save ok")
+                }catch {
+                    print(error)
+                }
+
+                
+                
+                
+                
+                
+                
 //                let json = ["lat":"\(nowLat!)","lng":"\(nowLng!)","pic":"\(imgTaken)"]
+                
                 let doing:String = inputText.text!
                 
 //                print(doing)
@@ -327,7 +385,10 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 let session = URLSession(configuration: .default)
                 var request = URLRequest(url: url!)
                 
-                request.httpBody = "account=\(app.account!)&doing=\(doing)&lat=\(nowLat!)&lng=\(nowLng!)&dogpic=\"\"".data(using: .utf8)
+//                request.httpBody = "account=\(app.account!)&doing=\(doing)&lat=\(nowLat!)&lng=\(nowLng!)&dogpic=/\"\"".data(using: .utf8)
+                
+                request.httpBody = "account=\(app.account!)&doing=\(doing)&lat=\(nowLat!)&lng=\(nowLng!)&dogpic=\(imgRelativePath)".data(using: .utf8)
+                
                 request.httpMethod = "POST"
                 
 //                let task = session.dataTask(with: request)
@@ -499,6 +560,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                             var doing = a["doing"]!
                             var createdate = a["createdate"]!
                             var idforimg = a["id"]!
+                            var dogpic = a["dogpic"]!
                             
                             var pushContent = "\(mastername)" + "正在" + "\(doing)"
                             
@@ -508,6 +570,9 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                             self.mydata.append("\(pushContent)")
                             //時間顯示
                             self.mydate.append("\(createdate)")
+                            
+                            self.myphoto.append("\(dogpic)")
+
 
                             
                             //                            self.mydata.append(a["mastername"]!)

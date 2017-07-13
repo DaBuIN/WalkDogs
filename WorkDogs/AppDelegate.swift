@@ -18,9 +18,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var id:String?
     var mastername:String?
     var sentToDetailId:String?
+    
+    
+    
+    func cleanVar(){
+        account = nil
+        passwd = nil
+        id = nil
+        mastername = nil
+        sentToDetailId = nil
+        print(type(of: account))
+        
+    
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+//        window = UIWindow(frame: UIScreen.main.bounds)
+//        
+////        window?.backgroundColor 
+//        
+////        
+//        let navigationBar = UINavigationController(rootViewController: ViewController())
+//
+//        
+//        
+//        
+//        window?.rootViewController = navigationBar
+////
+//        window?.makeKeyAndVisible()
+    
+        
+        
         return true
     }
 

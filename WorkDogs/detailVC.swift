@@ -42,7 +42,7 @@ class detailVC: UIViewController {
         //傳 imgPath(絕對路徑) docDir(家路徑+document)
     func showImg(imgPath:String,docDir:String){
         //如果空白或資料庫存成""
-        if imgPath.isEmpty || imgPath == "\"\"" {
+        if imgPath.isEmpty || imgPath == "/\"\"" {
             print("no image")
             let imgDefault = UIImage(named: "dog4")
             self.detailImgView.image = imgDefault

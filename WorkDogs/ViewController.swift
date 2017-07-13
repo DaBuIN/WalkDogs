@@ -139,9 +139,10 @@ class ViewController: UIViewController {
                     
                 }else if source == "passwdwrong"{
                     print("密碼錯了")
-                    
+                    alertWrong()
                 }else if source == "accountwrong"{
                     print("帳號錯了")
+                    alertWrong()
                 }
                 
             }catch {
@@ -251,7 +252,7 @@ class ViewController: UIViewController {
 
     func alertEmpty(){
         
-        let alertController = UIAlertController(title: "帳號申請", message: "請勿空白", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "帳號申請/登入", message: "請勿空白", preferredStyle: .alert)
         let okaction = UIAlertAction(title: "確認", style: .default, handler: {(action) in
             self.dismiss(animated: true, completion: nil)
             
@@ -262,7 +263,7 @@ class ViewController: UIViewController {
         
     }
     
-    
+    //帳號已存在
     func alertAccExist(){
         let alertController = UIAlertController(title: "帳號已存在", message: "請發揮你的創意", preferredStyle: .alert)
         let okaction = UIAlertAction(title: "確認", style: .default, handler: {(action) in
@@ -272,7 +273,19 @@ class ViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil )
     }
 
-    
+    func alertWrong(){
+        
+        let alertController = UIAlertController(title: "帳號登入", message: "帳號或密碼錯誤", preferredStyle: .alert)
+        let okaction = UIAlertAction(title: "確認", style: .default, handler: {(action) in
+            self.dismiss(animated: true, completion: nil)
+            
+        })
+        alertController.addAction(okaction)
+        self.present(alertController, animated: true, completion: nil )
+        
+        
+    }
+  
     
     
    
@@ -283,6 +296,8 @@ class ViewController: UIViewController {
         
         isLogin = true
         addMemberOrLoginState()
+        
+   
         
     }
 
