@@ -7,7 +7,14 @@ $PDO = new PDO($dsn,$username,$passwd,$options);
 $account = $_REQUEST['account'];
 
 
-$sql = "SELECT account,doing,lat,lng FROM dogs ORDER BY id DESC ";
+// $sql = "SELECT * FROM dogs ORDER BY id DESC ";
+
+//join
+$sql = "SELECT dogs.id, dogs.mid, dogmember.mastername ,dogs.doing,dogs.createdate, dogs.lat, dogs.lng,dogs.dogpic FROM dogmember JOIN dogs  ON dogmember.id = dogs.mid ORDER BY dogs.createdate DESC ";
+
+//select * from product as o INNER JOIN orders as p on o.pid=p.pid
+
+
 $stmt = $PDO->prepare($sql);
 $stmt->execute();
 

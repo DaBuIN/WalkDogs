@@ -28,6 +28,13 @@ if ($stmt->rowCount()>0){
 //        echo "passwd right" . $passwd .":" . $dbpasswd;
 
         echo 'pass';
+
+        $sql = "SELECT mid FROM dogmember WHERE account = ?";
+        $stmt = $PDO->prepare($sql);
+        $stmt->execute(["$account"]);
+
+
+
     }else {
         //密碼錯誤
 //        echo "passwd wrong";
