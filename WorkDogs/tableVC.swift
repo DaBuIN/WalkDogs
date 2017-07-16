@@ -328,7 +328,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                 //如果沒有上傳照片
                 print("imgUnTaken")
                 //預設照片
-                let imgTaken = UIImage(named: "a")
+                let imgTaken = UIImage(named: "dog3")
                 
                 
                 
@@ -412,7 +412,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
                     
                     
                 })
-                
+//                alertSubmit()
                 task.resume()
                 sleep(1)
                 self.reflashTable()
@@ -433,6 +433,40 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
         
         
     }
+    
+    
+    
+    //打卡確認鈕
+    func alertSubmit(){
+        
+        let alertController = UIAlertController(title: "打卡上傳", message: "動態與照片即將送出", preferredStyle: .alert)
+        let okaction = UIAlertAction(title: "確認", style: .default, handler: {(action) in
+            self.dismiss(animated: true, completion: {() in
+                
+                sleep(1)
+                self.tbView.reloadData()
+
+                self.reflashTable()
+                self.tbView.reloadData()
+            
+            })
+            
+        })
+        let cancelaction = UIAlertAction(title: "取消", style: .default, handler: {(action) in
+            self.dismiss(animated: true, completion: {() in
+                
+            })
+
+        })
+        alertController.addAction(okaction)
+        alertController.addAction(cancelaction)
+
+        self.present(alertController, animated: true, completion: nil )
+        
+        
+    }
+    
+    
     
     //重新導到這頁。為了reflash tbcell content用
     func reflashTable(){
