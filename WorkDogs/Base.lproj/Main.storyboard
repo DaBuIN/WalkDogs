@@ -99,6 +99,14 @@
                                     <navigationItem title="WalkDog" id="v1i-sY-Pg7"/>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qvb-9a-c8B">
+                                <rect key="frame" x="230" y="587" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="map"/>
+                                <connections>
+                                    <segue destination="3qs-cJ-mEh" kind="show" id="HmR-eY-2UW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.71597349807862076" green="1" blue="0.87980805850815524" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -561,10 +569,10 @@
             </objects>
             <point key="canvasLocation" x="1932" y="-558.17091454272872"/>
         </scene>
-        <!--View Controller-->
+        <!--MapVC-->
         <scene sceneID="GeO-kb-JUS">
             <objects>
-                <viewController id="3qs-cJ-mEh" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapvc" id="3qs-cJ-mEh" customClass="mapVC" customModule="WorkDogs" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pBG-9S-PCC"/>
                         <viewControllerLayoutGuide type="bottom" id="gYP-L3-yTV"/>
@@ -576,14 +584,47 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZA9-uk-iMp">
                                 <rect key="frame" x="16" y="49" width="343" height="598"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="3qs-cJ-mEh" id="G2j-Vk-3w0"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="ZA9-uk-iMp" id="iDn-QT-5t9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Q0-9I-TvS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2583.1999999999998" y="-784.85757121439292"/>
+        </scene>
+        <!--Map DetailVC-->
+        <scene sceneID="0Bh-5D-62K">
+            <objects>
+                <viewController storyboardIdentifier="mapdetailvc" id="ozh-mA-r96" customClass="mapDetailVC" customModule="WorkDogs" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eqA-8R-l6P"/>
+                        <viewControllerLayoutGuide type="bottom" id="9EY-JF-GRy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ua9-T0-xNJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MAPDETAIL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yHP-Dg-nS5">
+                                <rect key="frame" x="61" y="116" width="234" height="106"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IJW-7U-8Ue" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3357.5999999999999" y="-298.2008995502249"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mKT-ZC-crT">

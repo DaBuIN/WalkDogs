@@ -34,7 +34,7 @@ class tableVC: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLo
 //    var myimg:Array<UIImage> = []
     
     
-    var url = URL(string: "")
+//    var url = URL(string: "")
     
     let fmgr = FileManager.default
     let docDir = NSHomeDirectory() + "/Documents"

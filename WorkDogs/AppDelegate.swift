@@ -8,6 +8,8 @@
 
 import UIKit
 
+//GPS import CoreLocation
+import CoreLocation
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -19,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var mastername:String?
     var sentToDetailId:String?
     
+    //GPS CL...Manager
+    let lmgr = CLLocationManager()
     
     
     func cleanVar(){
@@ -49,6 +53,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 ////
 //        window?.makeKeyAndVisible()
     
+        
+        
+        
+        
+        //ＧＰＳ有關。先跳出詢問是否同意取得坐標授權
+        
+        
+        lmgr.requestWhenInUseAuthorization()
+        
+        
+        
         
         
         return true
